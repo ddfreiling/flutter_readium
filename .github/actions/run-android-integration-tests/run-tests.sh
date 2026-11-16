@@ -41,6 +41,7 @@ capture_hang_diagnostics() {
 
 for attempt in 1 2; do
   rm -f "$hang_marker"
+  install_limit_s=$(( attempt == 1 ? 5 : 120 ))  # EXERCISE ONLY: force a hang on attempt 1
   watch_install &
   watcher=$!
   # Kept well under the job's 30-minute limit, so a hang still ends here with logcat captured.
